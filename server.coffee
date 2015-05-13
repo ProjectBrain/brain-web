@@ -21,8 +21,8 @@ bands.subscribe ''
 
 app = express()
 
-app.use require('coffee-middleware')({src: __dirname})
-app.use express.static __dirname
+#app.use require('coffee-middleware')({src: __dirname})
+app.use express.static __dirname+'/public'
 
 server = http.createServer app
 
@@ -47,7 +47,7 @@ quality.on 'message', (message) ->
   broadcastRaw '{"quality":' + message + '}'
 
 freqs.on 'message', (message) ->
-  broadcastRaw '{"processed":' + message + '}'
+  broadcastRaw '{"freqs":' + message + '}'
 
 bands.on 'message', (message) ->
   broadcastRaw '{"bands":' + message + '}'
@@ -59,4 +59,4 @@ wss.on 'connection', (ws) ->
     sockets.splice(sockIndex, 1) if sockIndex > -1
 
 server.listen 8080
-console.log 'listening on 8080' 
+console.log 'listening on 8080'
