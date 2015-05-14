@@ -4,10 +4,12 @@ riot = require 'riot'
 require './components/brainweb-bands.tag'
 require './components/brainweb-quality.tag'
 require './components/brainweb-freqs.tag'
+require './components/brainweb-localised.tag'
 
 [bands] = riot.mount 'brainweb-bands'
 [quality] = riot.mount 'brainweb-quality'
 [freqs] = riot.mount 'brainweb-freqs'
+[localised] = riot.mount 'brainweb-localised'
 
 #[bands, quality, freqs] = riot.mount 'brainweb-bands,brainweb-quality,brainweb-freqs'
 
@@ -36,15 +38,19 @@ connect = ->
   ws.onmessage = (_data) ->
     msg = JSON.parse _data.data
 
-    if msg.bands
+    if bands and msg.bands
       bands.bands = msg.bands
       bands.update()
 
-    if msg.quality
+    if localised and msg.bands
+      localised.bands = msg.bands
+      localised.update()
+
+    if quality and msg.quality
       quality.quality = msg.quality
       quality.update()
 
-    if msg.freqs
+    if freqs and msg.freqs
       freqs.freqs = msg.freqs
       freqs.update()
 
