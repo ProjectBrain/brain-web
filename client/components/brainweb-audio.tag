@@ -7,10 +7,14 @@ riot = require('riot')
     <input type="radio" onclick="{ set }" value="pentatonic" checked="{{ mode == 'pentatonic' }}">Pentatonic
   </form>
   <script type='coffeescript'>
-    @mode = "linear"
+    @mode = "pentatonic"
 
     @ctx = ctx = new AudioContext()
     window.audioctx = ctx
+
+    receive 'freqs', (freqs) =>
+      @freqs = freqs
+      @update()
 
     window.mode = @mode
     LOWEST_AUDIO = 100

@@ -15,6 +15,10 @@ riot = require('riot')
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
+    receive 'freqs', (freqs) =>
+      @freqs = freqs
+      @update()
+
     @on 'update', ->
       return if @drawing
       @drawing = true
