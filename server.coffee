@@ -28,6 +28,7 @@ proxy = (sockname) ->
 proxy 'quality'
 proxy 'freqs'
 proxy 'bands'
+proxy 'fractal'
 
 server.listen 8080
 console.log 'listening on 8080'

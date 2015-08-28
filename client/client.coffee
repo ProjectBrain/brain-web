@@ -6,6 +6,7 @@ require './components/brainweb-quality.tag'
 require './components/brainweb-freqs.tag'
 require './components/brainweb-localised.tag'
 require './components/brainweb-audio.tag'
+require './components/brainweb-fractal.tag'
 
 protocol = if window.location.protocol is "https:" then "wss" else "ws"
 receivers = {}
@@ -40,6 +41,7 @@ window.receive = receive
 [freqs] = riot.mount 'brainweb-freqs'
 [localised] = riot.mount 'brainweb-localised'
 [audio] = riot.mount 'brainweb-audio'
+[fractal] = riot.mount 'brainweb-fractal'
 
 window.bands = bands
 window.quality = quality
