@@ -7,7 +7,6 @@ riot = require('riot')
   <style scoped>
     :scope {
       display: block;
-      float: right;
     }
   </style>
 

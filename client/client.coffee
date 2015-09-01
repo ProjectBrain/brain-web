@@ -7,6 +7,8 @@ require './components/brainweb-freqs.tag'
 require './components/brainweb-localised.tag'
 require './components/brainweb-audio.tag'
 require './components/brainweb-fractal.tag'
+require './components/brainweb-entropy.tag'
+require './components/brainweb-entropy-logger.tag'
 
 protocol = if window.location.protocol is "https:" then "wss" else "ws"
 receivers = {}
@@ -36,15 +38,8 @@ receive = (sockname, cb) ->
 
 window.receive = receive
 
-[bands] = riot.mount 'brainweb-bands'
-[quality] = riot.mount 'brainweb-quality'
-[freqs] = riot.mount 'brainweb-freqs'
-[localised] = riot.mount 'brainweb-localised'
-[audio] = riot.mount 'brainweb-audio'
-[fractal] = riot.mount 'brainweb-fractal'
+riot.mount '*'
 
-window.bands = bands
-window.quality = quality
 window.riot = riot
 
 $ = document.querySelector.bind(document)

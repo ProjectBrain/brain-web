@@ -30,7 +30,7 @@ riot = require('riot')
       @drawing = true
       requestAnimationFrame draw
 
-    pt = (x, y) -> {x, y}
+    pt = (x, y) -> {x: x/400, y: y/400}
 
     LOCATIONS =
       AF3: pt 160, 111
@@ -52,22 +52,29 @@ riot = require('riot')
 
     draw = =>
       @drawing = false
-      return unless @fractal
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
+      ctx.fillStyle = "black"
+      ctx.font = "48px Helvetica,sans-serif"
+      ctx.fillText("Fractal", canvas.width/2, canvas.height/2+32)
+      ctx.font = "12px Helvetica,sans-serif"
+      return unless @fractal
+
       FRACTAL_MIN = 1
       FRACTAL_MAX = 2
       for sensor, i in LOCATIONS_A
         loc = LOCATIONS[sensor]
+        x = loc.x * canvas.width
+        y = loc.y * canvas.height
         ctx.beginPath()
-        ctx.arc(loc.x, loc.y, 20, 0, Math.PI*2)
+        ctx.arc(x, y, 20, 0, Math.PI*2)
         ctx.closePath()
         redness = Math.min((@fractal[i]-FRACTAL_MIN)/(FRACTAL_MAX-FRACTAL_MIN),1)
         ctx.fillStyle = "rgb(#{Math.round(redness*255)}, 0, #{Math.round((1-redness)*255)})"
         ctx.fill()
         ctx.fillStyle = "white"
-        #ctx.fillText(sensor, loc.x, loc.y-8)
-        ctx.fillText(@fractal[i].toFixed(2), loc.x, loc.y+8)
+        ctx.fillText(@fractal[i].toFixed(2), x, y)
 
   </script>
 

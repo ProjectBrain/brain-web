@@ -1,6 +1,6 @@
 riot = require('riot')
 
-<brainweb-quality>
+<brainweb-entropy>
 
   <canvas name="canvas" width={ opts.width } height={ opts.height }></canvas>
 
@@ -20,8 +20,9 @@ riot = require('riot')
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
-    receive 'quality', (quality) =>
-      @quality = quality
+    receive 'entropy', (entropy) =>
+      #console.log "entropy", entropy
+      @entropy = entropy
       @update()
 
     @on 'update', ->
@@ -49,43 +50,34 @@ riot = require('riot')
 
     LOCATIONS_A = Object.keys(LOCATIONS)
 
-
-    #canvas.addEventListener 'click', (e) ->
-    #  console.log "e", e.layerX, e.layerY
-    #  ctx.clearRect(0, 0, canvas.width, canvas.height)
-    #  ctx.fillStyle = "black"
-    #  ctx.textAlign = "left"
-    #  ctx.beginPath()
-    #  ctx.arc(e.layerX, e.layerY, 20, 0, Math.PI*2)
-    #  ctx.closePath()
-    #  ctx.fill()
-    #  ctx.fillText("#{e.layerX},#{e.layerY}", e.layerX+30, e.layerY)
-
-
     draw = =>
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
       @drawing = false
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
       ctx.fillStyle = "black"
       ctx.font = "48px Helvetica,sans-serif"
-      ctx.fillText("Quality", canvas.width/2, canvas.height/2+32)
+      ctx.fillText("Entropy", canvas.width/2, canvas.height/2+32)
       ctx.font = "12px Helvetica,sans-serif"
-      return unless @quality
+      return unless @entropy
 
-      QUALITY_MAX = 5
-      for sensor, loc of LOCATIONS
+      ENTROPY_MIN = 3
+      ENTROPY_MAX = 6
+      # ENTROPY_MIN = 0.6
+      # ENTROPY_MAX = 0.8
+      for sensor, i in LOCATIONS_A
+        loc = LOCATIONS[sensor]
         x = loc.x * canvas.width
         y = loc.y * canvas.height
         ctx.beginPath()
         ctx.arc(x, y, 20, 0, Math.PI*2)
         ctx.closePath()
-        greenness = Math.min(@quality[sensor]/QUALITY_MAX,1)
-        ctx.fillStyle = "rgb(#{Math.round((1-greenness)*255)},#{Math.round(greenness*255)},0)"
+        value = Math.min((@entropy[i]-ENTROPY_MIN)/(ENTROPY_MAX-ENTROPY_MIN),1)
+        ctx.fillStyle = "rgb(255, #{Math.round((1-value)*255)}, 255)"
         ctx.fill()
         ctx.fillStyle = "black"
-        ctx.fillText(sensor, x, y)
+        ctx.fillText(@entropy[i].toFixed(2), x, y)
 
   </script>
 
-</brainweb-quality>
+</brainweb-entropy>
