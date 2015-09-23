@@ -6,7 +6,7 @@ WebSocketServer = require('ws').Server
 app = express()
 
 #app.use require('coffee-middleware')({src: __dirname})
-app.use express.static __dirname+'/public'
+app.use express.static __dirname + '/public'
 
 server = http.createServer app
 

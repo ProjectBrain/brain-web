@@ -16,7 +16,7 @@ riot = require('riot')
     }
   </style>
 
-  <script type='coffeescript'>
+  <script type='text/coffeescript'>
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
@@ -29,7 +29,7 @@ riot = require('riot')
       @drawing = true
       requestAnimationFrame draw
 
-    pt = (x, y) -> {x: x/400, y: y/400}
+    pt = (x, y) -> {x: x / 400, y: y / 400}
 
     LOCATIONS =
       AF3: pt 160, 111
@@ -65,12 +65,12 @@ riot = require('riot')
     draw = =>
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       @drawing = false
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillStyle = "black"
-      ctx.font = "48px Helvetica,sans-serif"
-      ctx.fillText("Quality", canvas.width/2, canvas.height/2+32)
-      ctx.font = "12px Helvetica,sans-serif"
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillStyle = 'black'
+      ctx.font = '48px Helvetica,sans-serif'
+      ctx.fillText('Quality', canvas.width / 2, canvas.height / 2 + 32)
+      ctx.font = '12px Helvetica,sans-serif'
       return unless @quality
 
       QUALITY_MAX = 5
@@ -78,12 +78,12 @@ riot = require('riot')
         x = loc.x * canvas.width
         y = loc.y * canvas.height
         ctx.beginPath()
-        ctx.arc(x, y, 20, 0, Math.PI*2)
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
         ctx.closePath()
-        greenness = Math.min(@quality[sensor]/QUALITY_MAX,1)
-        ctx.fillStyle = "rgb(#{Math.round((1-greenness)*255)},#{Math.round(greenness*255)},0)"
+        greenness = Math.min(@quality[sensor] / QUALITY_MAX, 1)
+        ctx.fillStyle = "rgb(#{Math.round((1 - greenness) * 255)}, #{Math.round(greenness * 255)}, 0)"
         ctx.fill()
-        ctx.fillStyle = "black"
+        ctx.fillStyle = 'black'
         ctx.fillText(sensor, x, y)
 
   </script>

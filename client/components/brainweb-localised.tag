@@ -16,7 +16,7 @@ riot = require('riot')
     }
   </style>
 
-  <script type='coffeescript'>
+  <script type='text/coffeescript'>
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
@@ -29,7 +29,7 @@ riot = require('riot')
       @drawing = true
       requestAnimationFrame draw
 
-    pt = (x, y) -> {x: x/400, y: y/400}
+    pt = (x, y) -> {x: x / 400, y: y / 400}
 
     LOCATIONS =
       AF3: pt 160, 111
@@ -54,15 +54,15 @@ riot = require('riot')
       @drawing = false
       return unless @bands
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
       #SE
       idx = 0
-      radius = Math.min(canvas.height, canvas.width)/2
+      radius = Math.min(canvas.height, canvas.width) / 2
       smallradius = 25 / 400 * canvas.height
       bigradius = 150 / 400 * canvas.height
       ctx.beginPath()
-      ctx.arc(canvas.width/2, canvas.height/2, radius, 0, Math.PI*2)
+      ctx.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2)
       ctx.closePath()
       ctx.clip()
 
@@ -70,22 +70,22 @@ riot = require('riot')
         x = loc.x * canvas.width
         y = loc.y * canvas.height
         ctx.beginPath()
-        ctx.arc(x, y, smallradius, 0, Math.PI*2)
+        ctx.arc(x, y, smallradius, 0, Math.PI * 2)
         ctx.closePath()
-        ctx.fillStyle = "white"
+        ctx.fillStyle = 'white'
         #ctx.fill()
 
         ctx.beginPath()
-        ctx.arc(x, y, bigradius, 0, Math.PI*2)
+        ctx.arc(x, y, bigradius, 0, Math.PI * 2)
         ctx.closePath()
         brightness = 0.2
-        redness = Math.min(@bands.beta[idx]/@bands.total[idx]+brightness,1)
-        greenness = Math.min(@bands.theta[idx]/@bands.total[idx]+brightness,1)
-        blueness = Math.min(@bands.alpha[idx]/@bands.total[idx]+brightness,1)
-        gradient = ctx.createRadialGradient(x,y,bigradius,x,y,0)
-        gradient.addColorStop(0, "rgba(#{Math.round(redness*255)},#{Math.round(greenness*255)},#{Math.round(blueness*255)},0)")
+        redness = Math.min(@bands.beta[idx] / @bands.total[idx] + brightness, 1)
+        greenness = Math.min(@bands.theta[idx] / @bands.total[idx] + brightness, 1)
+        blueness = Math.min(@bands.alpha[idx] / @bands.total[idx] + brightness, 1)
+        gradient = ctx.createRadialGradient(x, y, bigradius, x, y, 0)
+        gradient.addColorStop(0, "rgba(#{Math.round(redness * 255)}, #{Math.round(greenness * 255)}, #{Math.round(blueness * 255)}, 0)")
         #gradient.addColorStop(0.2, "rgba(#{Math.round(redness*255)},#{Math.round(greenness*255)},#{Math.round(blueness*255)},0.1)")
-        gradient.addColorStop(1, "rgba(#{Math.round(redness*255)},#{Math.round(greenness*255)},#{Math.round(blueness*255)},1)")
+        gradient.addColorStop(1, "rgba(#{Math.round(redness * 255)}, #{Math.round(greenness * 255)}, #{Math.round(blueness * 255)}, 1)")
         #ctx.fillStyle = "rgba(#{Math.round(redness*255)},#{Math.round(greenness*255)},#{Math.round(blueness*255)},0.5)"
         ctx.fillStyle = gradient
         ctx.fill()

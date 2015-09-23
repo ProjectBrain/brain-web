@@ -10,7 +10,7 @@ require './components/brainweb-fractal.tag'
 require './components/brainweb-entropy.tag'
 require './components/brainweb-entropy-logger.tag'
 
-protocol = if window.location.protocol is "https:" then "wss" else "ws"
+protocol = if window.location.protocol is 'https:' then 'wss' else 'ws'
 receivers = {}
 receive = (sockname, cb) ->
   if !receivers[sockname]

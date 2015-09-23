@@ -13,7 +13,7 @@ riot = require('riot')
     }
   </style>
 
-  <script type='coffeescript'>
+  <script type='text/coffeescript'>
     receive 'entropy', (entropy) =>
       #console.log "entropy", entropy
       @entropy = entropy

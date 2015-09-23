@@ -16,7 +16,7 @@ riot = require('riot')
     }
   </style>
 
-  <script type='coffeescript'>
+  <script type='text/coffeescript'>
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
@@ -30,7 +30,7 @@ riot = require('riot')
       @drawing = true
       requestAnimationFrame draw
 
-    pt = (x, y) -> {x: x/400, y: y/400}
+    pt = (x, y) -> {x: x / 400, y: y / 400}
 
     LOCATIONS =
       AF3: pt 160, 111
@@ -53,12 +53,12 @@ riot = require('riot')
     draw = =>
       @drawing = false
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillStyle = "black"
-      ctx.font = "48px Helvetica,sans-serif"
-      ctx.fillText("Entropy", canvas.width/2, canvas.height/2+32)
-      ctx.font = "12px Helvetica,sans-serif"
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillStyle = 'black'
+      ctx.font = '48px Helvetica,sans-serif'
+      ctx.fillText('Entropy', canvas.width / 2, canvas.height / 2 + 32)
+      ctx.font = '12px Helvetica,sans-serif'
       return unless @entropy
 
       ENTROPY_MIN = 3
@@ -70,12 +70,12 @@ riot = require('riot')
         x = loc.x * canvas.width
         y = loc.y * canvas.height
         ctx.beginPath()
-        ctx.arc(x, y, 20, 0, Math.PI*2)
+        ctx.arc(x, y, 20, 0, Math.PI * 2)
         ctx.closePath()
-        value = Math.min((@entropy[i]-ENTROPY_MIN)/(ENTROPY_MAX-ENTROPY_MIN),1)
-        ctx.fillStyle = "rgb(255, #{Math.round((1-value)*255)}, 255)"
+        value = Math.min((@entropy[i] - ENTROPY_MIN) / (ENTROPY_MAX - ENTROPY_MIN), 1)
+        ctx.fillStyle = "rgb(255, #{Math.round((1 - value) * 255)}, 255)"
         ctx.fill()
-        ctx.fillStyle = "black"
+        ctx.fillStyle = 'black'
         ctx.fillText(@entropy[i].toFixed(2), x, y)
 
   </script>

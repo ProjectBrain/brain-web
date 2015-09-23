@@ -10,7 +10,7 @@ riot = require('riot')
     }
   </style>
 
-  <script type='coffeescript'>
+  <script type='text/coffeescript'>
     @ctx = ctx = @canvas.getContext('2d')
     canvas = @canvas
 
@@ -33,7 +33,7 @@ riot = require('riot')
       ctx.stroke()
 
 
-    LOCATIONS = ["AF3", "AF4", "F7", "F8", "F3", "F4", "FC5", "FC6", "T7", "T8", "P7", "P8", "O1", "O2"]
+    LOCATIONS = ['AF3', 'AF4', 'F7', 'F8', 'F3', 'F4', 'FC5', 'FC6', 'T7', 'T8', 'P7', 'P8', 'O1', 'O2']
 
     draw = =>
       @drawing = false
@@ -42,27 +42,27 @@ riot = require('riot')
       ctx.textAlign = 'left'
       margin = 16
       bottom = canvas.height
-      xscale = canvas.width/@freqs.freq.length
+      xscale = canvas.width / @freqs.freq.length
       xscale *= 2
-      for powers, i in @freqs.psd.slice(0,14)
+      for powers, i in @freqs.psd.slice(0, 14)
         continue if @quality and @quality[LOCATIONS[i]] < 5
-        hue = Math.round(i/@freqs.psd.length*255)
+        hue = Math.round(i / @freqs.psd.length * 255)
         ctx.strokeStyle = "hsl(#{hue}, 50%, 75%)"
         ctx.fillStyle = "hsl(#{hue}, 50%, 75%)"
-        ctx.fillText LOCATIONS[i], 0, i/LOCATIONS.length*canvas.height
+        ctx.fillText LOCATIONS[i], 0, i / LOCATIONS.length * canvas.height
         ctx.beginPath()
         for y, x in powers
           #y = y / 100
           #y = Math.log(y)*10
           if x == 0
-            ctx.moveTo(x+margin, bottom-y-margin)
+            ctx.moveTo(x + margin, bottom - y - margin)
           else
-            ctx.lineTo(x*xscale+margin, bottom-y-margin)
+            ctx.lineTo(x * xscale + margin, bottom - y - margin)
         ctx.stroke()
       ctx.textAlign = 'center'
       ctx.fillStyle = 'black'
       for freq, x in @freqs.freq
-        ctx.fillText freq, x*xscale, bottom if freq % 1 == 0
+        ctx.fillText freq, x * xscale, bottom if freq % 1 == 0
 
   </script>
 
