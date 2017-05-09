@@ -41,6 +41,7 @@ proxy 'bands'
 proxy 'bpmbands'
 proxy 'fractal'
 proxy 'entropy'
+proxy 'visdata'
 
 port = process.env.PORT or 8080
 server.listen port
