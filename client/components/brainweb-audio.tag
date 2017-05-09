@@ -2,13 +2,15 @@ riot = require('riot')
 
 <brainweb-audio>
   <form>
-    <input type="radio" onclick="{ set }" value="linear" checked="{{ mode == 'linear' }}">Linear
-    <input type="radio" onclick="{ set }" value="exponential" checked="{{ mode == 'exponential' }}">Exponential
-    <input type="radio" onclick="{ set }" value="pentatonic" checked="{{ mode == 'pentatonic' }}">Pentatonic
-    <input type="radio" onclick="{ set }" value="equal" checked="{{ mode == 'equal' }}">Equal
+    <input type="radio" onclick="{ set }" value="linear" checked="{ mode == 'linear' }" />Linear
+    <input type="radio" onclick="{ set }" value="exponential" checked="{ mode == 'exponential' }" />Exponential
+    <input type="radio" onclick="{ set }" value="pentatonic" checked="{ mode == 'pentatonic' }" />Pentatonic
+    <input type="radio" onclick="{ set }" value="equal" checked="{ mode == 'equal' }" />Equal
+    <input type="radio" onclick="{ set }" value="off" checked="{ mode == 'off' }" />Off
   </form>
+
   <script type='text/coffeescript'>
-    @mode = "equal"
+    @mode = "off"
 
     @ctx = ctx = new AudioContext()
     window.audioctx = ctx
@@ -71,6 +73,8 @@ riot = require('riot')
           pentatonic[i] or 0#* ((HIGHEST_AUDIO - LOWEST_AUDIO) / (HIGHEST_PENT - LOWEST_PENT)) + (LOWEST_AUDIO - LOWEST_PENT) or 0
         when 'equal'
           LOWEST_AUDIO * Math.pow(2, i / (NUM_OSCS / NUM_OCTAVES))
+        when 'off'
+          0
 
 
     @set = (e) =>

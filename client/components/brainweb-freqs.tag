@@ -43,9 +43,9 @@ riot = require('riot')
       margin = 16
       bottom = canvas.height
       xscale = canvas.width / @freqs.freq.length
-      xscale *= 2
+      xscale *= opts.scale or 1
       for powers, i in @freqs.psd.slice(0, 14)
-        continue if @quality and @quality[LOCATIONS[i]] < 5
+        continue if @quality and @quality[LOCATIONS[i]] < 0.5
         hue = Math.round(i / @freqs.psd.length * 255)
         ctx.strokeStyle = "hsl(#{hue}, 50%, 75%)"
         ctx.fillStyle = "hsl(#{hue}, 50%, 75%)"
@@ -62,7 +62,10 @@ riot = require('riot')
       ctx.textAlign = 'center'
       ctx.fillStyle = 'black'
       for freq, x in @freqs.freq
-        ctx.fillText freq, x * xscale, bottom if freq % 1 == 0
+        if opts.bpm isnt undefined
+          ctx.fillText freq * 60 + " bpm", x * xscale, bottom if freq * 60 % 10 == 0
+        else
+          ctx.fillText freq + " Hz", x * xscale, bottom if freq % 1 == 0
 
   </script>
 

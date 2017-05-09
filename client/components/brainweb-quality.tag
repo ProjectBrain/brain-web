@@ -73,7 +73,7 @@ riot = require('riot')
       ctx.font = '12px Helvetica,sans-serif'
       return unless @quality
 
-      QUALITY_MAX = 5
+      QUALITY_MAX = 100
       for sensor, loc of LOCATIONS
         x = loc.x * canvas.width
         y = loc.y * canvas.height

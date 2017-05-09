@@ -2,11 +2,13 @@ require './style.css'
 
 riot = require 'riot'
 require './components/brainweb-bands.tag'
+require './components/brainweb-bpmbands.tag'
 require './components/brainweb-quality.tag'
 require './components/brainweb-freqs.tag'
 require './components/brainweb-localised.tag'
 require './components/brainweb-audio.tag'
 require './components/brainweb-fractal.tag'
+require './components/brainweb-3d.tag'
 require './components/brainweb-entropy.tag'
 require './components/brainweb-entropy-logger.tag'
 
