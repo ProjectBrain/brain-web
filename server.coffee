@@ -13,11 +13,11 @@ server = http.createServer app
 proxies = {}
 
 server.on 'upgrade', (request, socket, head) ->
-  path = url.parse(request.url).pathname
-  return unless wss = proxies[path]
+  name = url.parse(request.url).pathname?.slice(1)
+  return unless name and name.match /^\w+$/
+  wss = (proxies[name] ?= proxy(name))
   wss.handleUpgrade request, socket, head, (ws) ->
     wss.emit 'connection', ws
-
 
 proxy = (sockname) ->
   zsock = zmq.socket 'sub'
@@ -25,7 +25,6 @@ proxy = (sockname) ->
   zsock.subscribe ''
 
   wss = new WebSocketServer noServer: true, clientTracking: true, perMessageDeflate: false
-  proxies["/#{sockname}"] = wss
   broadcast = (data) ->
     wss.clients.forEach (ws) ->
       ws.send data, binary: false if ws.readyState is ws.OPEN
@@ -34,14 +33,7 @@ proxy = (sockname) ->
   wss.on 'connection', (client) ->
     console.log 'connected', sockname
     client.on 'close', -> console.log 'disconnected', sockname
-
-proxy 'quality'
-proxy 'freqs'
-proxy 'bands'
-proxy 'bpmbands'
-proxy 'fractal'
-proxy 'entropy'
-proxy 'visdata'
+  wss
 
 port = process.env.PORT or 8080
 server.listen port
