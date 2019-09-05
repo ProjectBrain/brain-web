@@ -1,7 +1,7 @@
 http = require 'http'
 url = require 'url'
 express = require 'express'
-zmq = require 'zmq'
+zmq = require 'zeromq'
 WebSocketServer = require('ws').Server
 
 app = express()
